@@ -16,4 +16,4 @@ RUN npm run build --prod
 
 EXPOSE 4200
 # Disable host check to prevent "Invalid host header"
-CMD ng serve --prod --host 0.0.0.0 --disable-host-check
+CMD ng serve --host 0.0.0.0 --disable-host-check
