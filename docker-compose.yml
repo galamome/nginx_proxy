@@ -1,19 +1,5 @@
 version: '3.8'
 services:
-    # Angular Web front-end
-    client:
-        build:
-            context: ./client
-            args:
-                # Versions of the Docker base images
-                ALPINE_VERSION: alpine3.18
-                NODE_VERSION: 16
-        # For DEBUG only (direct access bypassing the reverse proxy)
-#        ports:
-#            - "4200:4200"
-        container_name: client
-        depends_on:
-            [barapi, fooapi]
     # NodeJs REST API back-end
     barapi:
         build:
@@ -56,6 +42,9 @@ services:
         # shell variables with values from environment variables. It outputs to a file in /etc/nginx/conf.d/
         env_file:
             - ./nginx/.env
-        container_name: nginx
+        container_name: nginx        
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+            #- "host.docker.internal:172.17.0.1"
         ports:
             - 443:443
