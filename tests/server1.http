@@ -1,0 +1,10 @@
+
+@baseUrl = http://my-demo-app.galamome
+
+### Get the emergency telephone numbers for facility 'CLS-SKY'
+
+GET {{baseUrl}}/server1/app HTTP/1.1
+
+###
+
+GET http://127.0.0.1:80/server1/app HTTP/1.1

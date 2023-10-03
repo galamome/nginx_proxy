@@ -1,0 +1,58 @@
+version: '3.8'
+services:
+    # Angular Web front-end
+    client:
+        build:
+            context: ./client
+            args:
+                # Versions of the Docker base images
+                ALPINE_VERSION: alpine3.18
+                NODE_VERSION: 16
+        ports:
+            - "4200:4200"
+        container_name: client
+        depends_on:
+            [barapi, fooapi]
+    # NodeJs REST API back-end
+    barapi:
+        build:
+            context: ./barapi
+            args:
+                # Versions of the Docker base images
+                ALPINE_VERSION: alpine3.18
+                NODE_VERSION: 18.17.1
+        ports:
+            - 5001:5001
+        container_name: barapi
+        depends_on:
+            - nginx
+    # NodeJs REST API back-end
+    fooapi:
+        build:
+            context: ./fooapi
+            args:
+                # Versions of the Docker base images
+                ALPINE_VERSION: alpine3.18
+                NODE_VERSION: 18.17.1
+        ports:
+            - 5002:5002
+        container_name: fooapi
+        depends_on:
+            - nginx
+    # NGinx reverse proxy
+    nginx:
+        restart: always
+        build:
+            context: ./nginx
+            args:
+                # Versions of the Docker base images
+                ALPINE_VERSION: alpine3.18
+                NGINX_VERSION: 1.25.2
+        # On startup, the nginx entrypoint script scans this directory for files with *.template suffix by default,
+        # and it runs envsubst. The envsubst parse the template using the shell interpolation and replaces 
+        # shell variables with values from environment variables. It outputs to a file in /etc/nginx/conf.d/
+        env_file:
+            - ./nginx/.env
+        container_name: nginx
+        ports:
+            - 80:80
