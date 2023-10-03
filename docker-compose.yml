@@ -7,7 +7,7 @@ services:
             args:
                 # Versions of the Docker base images
                 ALPINE_VERSION: alpine3.18
-                NODE_VERSION: 16
+                NODE_VERSION: 18.17.1
         ports:
             - "4200:4200"
         container_name: client
