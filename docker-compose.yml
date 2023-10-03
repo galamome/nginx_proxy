@@ -8,8 +8,9 @@ services:
                 # Versions of the Docker base images
                 ALPINE_VERSION: alpine3.18
                 NODE_VERSION: 16
-        ports:
-            - "4200:4200"
+        # For DEBUG only (direct access bypassing the reverse proxy)
+#        ports:
+#            - "4200:4200"
         container_name: client
         depends_on:
             [barapi, fooapi]
@@ -21,8 +22,9 @@ services:
                 # Versions of the Docker base images
                 ALPINE_VERSION: alpine3.18
                 NODE_VERSION: 18.17.1
-        ports:
-            - 5001:5001
+        # For DEBUG only (direct access bypassing the reverse proxy)
+#        ports:
+#            - 5001:5001
         container_name: barapi
         depends_on:
             - nginx
@@ -34,8 +36,9 @@ services:
                 # Versions of the Docker base images
                 ALPINE_VERSION: alpine3.18
                 NODE_VERSION: 18.17.1
-        ports:
-            - 5002:5002
+        # For DEBUG only (direct access bypassing the reverse proxy)
+#        ports:
+#            - 5002:5002
         container_name: fooapi
         depends_on:
             - nginx
@@ -55,4 +58,4 @@ services:
             - ./nginx/.env
         container_name: nginx
         ports:
-            - 80:80
+            - 443:443
