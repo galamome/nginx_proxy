@@ -38,7 +38,7 @@ services:
                 NODE_VERSION: 18.17.1
         # For DEBUG only (direct access bypassing the reverse proxy)
 #        ports:
-#            - 5002:5002
+#            - 5002:5001
         container_name: fooapi
         depends_on:
             - nginx
